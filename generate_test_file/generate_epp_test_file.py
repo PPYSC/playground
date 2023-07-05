@@ -96,7 +96,7 @@ def run_many(csv_path, save_path, fdlibm_path, testcase_path):
             "testcase_path": testcase_path,
         }
         generate_test(conf)
-        do_test(conf)
+        # do_test(conf)
 
 
 # start

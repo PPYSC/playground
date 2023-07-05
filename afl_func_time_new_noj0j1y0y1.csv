@@ -24,7 +24,7 @@ s_cos.c,cos,1,7.83
 s_erf.c,erf,1,108.1
 s_erf.c,erfc,1,8.22
 s_expm1.c,expm1,1,19.58
-s_ﬂoor.c,floor,1,122.55
+s_floor.c,floor,1,122.55
 s_ilogb.c,ilogb,1,122.99
 s_log1p.c,log1p,1,129.93
 s_logb.c,logb,1,6.89
