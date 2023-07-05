@@ -86,13 +86,13 @@ def generate_test(conf):
         # mkdir fuzz_in
         mkdir(test_path + "/fuzz_in")
         if func_type == 1:
-            testcase_str = "0.123456"
+            testcase_str = "0.88"
         elif func_type == 2 or 3:
             testcase_str = "12345.06789 987.0654321"
         elif func_type == 4:
             testcase_str = "12345.06789 987.0654321 5.23467819"
         else:
-            testcase_str = "0.123456"
+            testcase_str = "0.88"
         testcase_file = open(test_path + "/fuzz_in/testcase", 'w')
         testcase_file.write(testcase_str)
         print(f"== Success: New file {test_path + '/fuzz_in/testcase'} == ")
@@ -145,9 +145,10 @@ def run_many(csv_path, save_path, fdlibm_path, afl_path, cc_name):
     for line in file.readlines():
         strl = line.split(",")
         conf = {
-            "func_name": strl[0],
-            "func_type": int(strl[1]),
-            "test_time": int(strl[2]),
+            "func_file": strl[0],
+            "func_name": strl[1],
+            "func_type": int(strl[2]),
+            "test_time": float(strl[3]),
             "save_path": save_path,
             "fdlibm_path": fdlibm_path,
             "afl_path": afl_path,
@@ -157,8 +158,9 @@ def run_many(csv_path, save_path, fdlibm_path, afl_path, cc_name):
         do_test(conf)
 
 
-def run_one(func_name, func_type, test_time, save_path, fdlibm_path, afl_path, cc_name):
+def run_one(func_file, func_name, func_type, test_time, save_path, fdlibm_path, afl_path, cc_name):
     conf = {
+        "func_file": func_file,
         "func_name": func_name,
         "func_type": func_type,
         "test_time": test_time,
@@ -172,5 +174,5 @@ def run_one(func_name, func_type, test_time, save_path, fdlibm_path, afl_path, c
 
 
 # start
-run_many("../afl_func_time.csv", "/home/ppy/wk/afl/afl_gcc/afl_test", "/home/ppy/wk/afl/afl_gcc/fdlibm",
+run_many("./afl_func_time_new_noj0j1y0y1.csv", "/home/ppy/wk/afl/afl_gcc/afl_test", "/home/ppy/wk/afl/afl_gcc/fdlibm",
          "/home/ppy/wk/afl/afl_gcc/AFLplusplus", "afl-gcc")

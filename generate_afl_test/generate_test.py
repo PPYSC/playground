@@ -164,4 +164,4 @@ def run_one(func_name, func_type, test_time, save_path, fdlibm_path, afl_path, c
 
 
 # start
-run_many("../afl_func_time.csv", "/home/ppy/wk/afl/afl_test", "/home/ppy/wk/afl/fdlibm", "/home/ppy/wk/afl/afl-2.52b")
+run_many("./afl_func_time_new.csv", "/home/ppy/wk/afl/afl_test", "/home/ppy/wk/afl/fdlibm", "/home/ppy/wk/afl/afl-2.52b")

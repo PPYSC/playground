@@ -34,21 +34,21 @@ def generate_test(conf):
             if file.endswith(".c") or file.endswith(".h"):
                 os.system(f"cp {fdlibm_path}/{file} {unit_path}/{file}")
 
-        main_file = open(f"{unit_path}/{func_file}", 'a')
+        main_file = open(f"{unit_path}/main.c", 'w')
 
         if func_type == 1:
-            main_str = f"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tfscanf(f, \"%lf\", &x);\n\t\t{func_name}(x);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
+            main_str = f"#include \"fdlibm.h\"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tfscanf(f, \"%lf\", &x);\n\t\t{func_name}(x);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
         elif func_type == 2:
-            main_str = f"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y = 0;\n\t\tfscanf(f, \"%lf %lf\", &x, &y);\n\t\t{func_name}(x,y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
+            main_str = f"#include \"fdlibm.h\"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y = 0;\n\t\tfscanf(f, \"%lf %lf\", &x, &y);\n\t\t{func_name}(x,y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
         elif func_type == 3:
-            main_str = f"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y = 0;\n\t\tfscanf(f, \"%lf %lf\", &x, &y);\n\t\t{func_name}(x,&y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
+            main_str = f"#include \"fdlibm.h\"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y = 0;\n\t\tfscanf(f, \"%lf %lf\", &x, &y);\n\t\t{func_name}(x,&y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
         elif func_type == 4:
-            main_str = f"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y[2] = {{0, 0}};\n\t\tfscanf(f, \"%lf %lf %lf\", &x, &y[0], &y[1]);\n\t\t{func_name}(x,y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
+            main_str = f"#include \"fdlibm.h\"\n\n#include <stdio.h>\n// LCOV_EXCL_START\nint main(int argc, char *argv[])\n{{\n\tfor(int i = 1; i < argc; i++) {{\n\t\tFILE *f = fopen(argv[i], \"r\");\n\t\tdouble x = 0;\n\t\tdouble y[2] = {{0, 0}};\n\t\tfscanf(f, \"%lf %lf %lf\", &x, &y[0], &y[1]);\n\t\t{func_name}(x,y);\n\t}}\n\treturn 0;\n}}\n// LCOV_EXCL_STO\n"
         else:
             main_str = ""
 
         main_file.write(main_str)
-        print(f"== Success: Main file {unit_path}/{func_file} == ")
+        print(f"== Success: Main file {unit_path}/main.c == ")
 
         # copy testcase
         spec_testcase_path = testcase_path + f"/{func_name}=={test_time}/fuzz_out/default/queue"
@@ -85,7 +85,7 @@ def run_many(csv_path, save_path, fdlibm_path, testcase_path):
             "func_file": strl[0],
             "func_name": strl[1],
             "func_type": int(strl[2]),
-            "test_time": int(strl[3]),
+            "test_time": float(strl[3]),
             "save_path": save_path,
             "fdlibm_path": fdlibm_path,
             "testcase_path": testcase_path,
@@ -95,5 +95,5 @@ def run_many(csv_path, save_path, fdlibm_path, testcase_path):
 
 
 # start
-run_many("./afl_func_time_noj0j1y0y1.csv", "/home/ppy/wk/afl_gcov_branch/test_gcov_branch",
+run_many("./afl_func_time_new.csv", "/home/ppy/wk/afl_gcov_branch/test_gcov_branch",
          "/home/ppy/wk/afl_gcov_branch/fdlibm", "/home/ppy/wk/afl/afl_gcc/afl_test")

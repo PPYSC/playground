@@ -17,17 +17,18 @@ def mkdir(path):
 def generate_test(conf):
     func_file = conf["func_file"]  # 被测函数所在文件
     func_name = conf["func_name"]  # 被测函数名称
+    test_time = conf["test_time"]  # 测试时间，单位为秒
     func_type = conf[
         "func_type"]  # 被测函数的参数类型：1.参数为 (double) ；2. 参数为 (double, double) ；3. 参数为 (double, *double)；4. 解决 __ieee754_rem_pio2 数组越界的特殊方法
     save_path = conf["save_path"]  # 存放测试单元的路径
-
     fdlibm_path = conf["fdlibm_path"]  # 被测静态库的路径，没有编译
+    testcase_path = conf["testcase_path"]  # 测试用例路径
 
     unit_path = save_path + "/" + f"{func_file}:{func_name}"
 
     if mkdir(unit_path):
 
-        # copy file
+        # copy src file
         files = os.listdir(fdlibm_path)
         for file in files:
             if file.endswith(".c") or file.endswith(".h"):
@@ -49,8 +50,22 @@ def generate_test(conf):
         main_file.write(main_str)
         print(f"== Success: Main file {unit_path}/main.c == ")
 
+        # copy testcase
+        spec_testcase_path = testcase_path + f"/{func_name}=={test_time}/fuzz_out/default/queue"
+        testcase_files = os.listdir(spec_testcase_path)
+        for index, testcase_file in enumerate(testcase_files):
+            if os.path.isfile(spec_testcase_path + '/' + testcase_file):
+                os.system(f"cp {spec_testcase_path + '/' + testcase_file} {unit_path + '/' + str(index)}.testcase")
+
         # write run.sh
-        run_str = f"gcc -D_IEEE_LIBM -o main *.c\n"
+        run_str = f"export PATH=/root/llvm-5.0.2/bin:$PATH\n" \
+                  f"export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH\n" \
+                  f"clang -c -g -emit-llvm *.c\n" \
+                  f"llvm-link *.bc -o app.bc\n" \
+                  f"llvm-epp app.bc -o path-profile.txt\n" \
+                  f"clang app.epp.bc -o app -lepp-rt -lm\n" \
+                  f"./app *.testcase\n" \
+                  f"llvm-epp -p=path-profile.txt app.bc > cov.txt"
         run_file = open(unit_path + "/run.sh", 'w')
         run_file.write(run_str)
         print(f"== Success: New file {unit_path + '/run.sh'} == ")
@@ -65,10 +80,9 @@ def do_test(conf):
     unit_path = save_path + "/" + f"{func_file}:{func_name}"
 
     os.system(f"cd {unit_path} && chmod +x run.sh && ./run.sh")
-    sleep(5)
 
 
-def run_many(csv_path, save_path, fdlibm_path):
+def run_many(csv_path, save_path, fdlibm_path, testcase_path):
     file = open(csv_path, "r")
     for line in file.readlines():
         strl = line.split(",")
@@ -79,10 +93,12 @@ def run_many(csv_path, save_path, fdlibm_path):
             "test_time": float(strl[3]),
             "save_path": save_path,
             "fdlibm_path": fdlibm_path,
+            "testcase_path": testcase_path,
         }
         generate_test(conf)
         do_test(conf)
 
 
 # start
-run_many("./afl_func_time_new.csv", "/home/ppy/wk/generate_test_file/test_file", "/home/ppy/wk/generate_test_file/fdlibm")
+run_many("./afl_func_time_new_noj0j1y0y1.csv", "/home/ppy/wk/afl_epp_path/test_epp_path",
+         "/home/ppy/wk/afl_epp_path/fdlibm", "/home/ppy/wk/afl/afl_gcc/afl_test")
