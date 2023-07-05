@@ -56,7 +56,7 @@ def generate_test(conf):
         run_str = f"export PATH={klee_path}:$PATH\n" \
                   f"clang -emit-llvm -c *.c\n" \
                   f"llvm-link *.bc -o app.bc\n" \
-                  f"timeout {test_time} /usr/bin/time -f \"real time: %E\" -o time.txt klee --only-output-states-covering-new --libc=uclibc app.bc\n" \
+                  f"timeout {test_time} /usr/bin/time -f \"real time: %E\" -o time.txt klee --only-output-states-covering-new --libc=uclibc app.bc > log.txt\n" \
                   f"ktest-tool klee-last/*.ktest > testcases\n"
 
     run_file = open(unit_path + "/run.sh", 'w')

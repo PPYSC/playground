@@ -1,6 +1,8 @@
 import os
 import re
 
+IN_DIR = f"./test_in/"
+
 
 def mkdir(path):
     folder = os.path.exists(path)
@@ -13,8 +15,6 @@ def mkdir(path):
         print(f"== Failed: Folder {path} already exists ==")
         return False
 
-
-IN_DIR = f"./test_in/"
 
 gcov_test_dirs = os.listdir(IN_DIR)
 
