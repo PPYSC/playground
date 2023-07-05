@@ -1,27 +1,239 @@
 ktest file : 'klee-last/test000001.ktest'
 args       : ['app.bc']
-num objects: 1
-object    0: name: 'x'
-object    0: size: 8
-object    0: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
-()
-ktest file : 'klee-last/test000002.ktest'
-args       : ['app.bc']
-num objects: 1
+num objects: 2
 object    0: name: 'x'
 object    0: size: 8
 object    0: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x7f\x02\x00\x00\x00'
+()
+ktest file : 'klee-last/test000002.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\x7f\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
 ()
 ktest file : 'klee-last/test000003.ktest'
 args       : ['app.bc']
-num objects: 1
+num objects: 2
 object    0: name: 'x'
 object    0: size: 8
-object    0: data: '\x00\x00\x00\x80\x00\x00\x00@'
+object    0: data: '\x00\x00\x00\x80\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xbf\x00\x00\x00\x00'
 ()
 ktest file : 'klee-last/test000004.ktest'
 args       : ['app.bc']
-num objects: 1
+num objects: 2
 object    0: name: 'x'
 object    0: size: 8
-object    0: data: '\x00\x00\x00\x00\x00\x00\x00\x80'
+object    0: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xbf\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000005.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000006.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x00\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000007.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0?\x02\x00\x00\x00'
+()
+ktest file : 'klee-last/test000008.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00H\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0?\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000009.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x80\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000010.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x80\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000011.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000012.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000013.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0?\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000014.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x00\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0?\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000015.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\xc8\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0?\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000016.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x00\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000017.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x7f\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000018.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000019.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00\x00\x02\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xff\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000020.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xb0p\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x8b\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000021.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xb0\xf0\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x8b\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000022.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xb0\xa4\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x03\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000023.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\xb0$\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\x03\x00\x00\x00\x00'
+()
+ktest file : 'klee-last/test000024.ktest'
+args       : ['app.bc']
+num objects: 2
+object    0: name: 'x'
+object    0: size: 8
+object    0: data: '\x00\x00\x00<\x00\x00\x00\x00'
+object    1: name: 'y'
+object    1: size: 8
+object    1: data: '\x00\x00\xf0\xbf\x00\x00\x00\x00'
