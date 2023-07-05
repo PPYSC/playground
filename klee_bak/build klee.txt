@@ -1,0 +1,37 @@
+
+build klee参考：http://klee.github.io/releases/docs/v1.3.0/build-llvm34/
+
+系统 Ubuntu14.04.6 amd64：https://www.releases.ubuntu.com/14.04/ubuntu-14.04.6-desktop-amd64.iso
+
+关闭wget验证
+sudo vim /etc/wgetrc
+添加一行 check-certificate = off
+
+第一步前：
+sudo apt-get update
+
+第二步：
+sudo apt-get install clang-3.4 llvm-3.4 llvm-3.4-dev llvm-3.4-tools  去掉tools变为  sudo apt-get install clang-3.4 llvm-3.4 llvm-3.4-dev
+
+第三步：build z3
+git clone https://github.com/Z3Prover/z3.git
+cd z3/
+git checkout 4c664f1c05786a479e016ffac0d0c6a2e00ab64d
+python scripts/mk_make.py
+cd build
+make       （需要点时间）
+sudo make install
+
+第四步：可选项，do it
+
+之后就开始编译klee：
+git clone https://github.com/srg-imperial/klee-float.git
+cd klee-float
+mkdir build
+cd build
+cmake -DENABLE_SOLVER_Z3=ON -DENABLE_SOLVER_STP=OFF -DENABLE_POSIX_RUNTIME=ON -DENABLE_KLEE_UCLIBC=ON -DKLEE_UCLIBC_PATH=~/klee-uclibc -DLLVM_CONFIG_BINARY=/usr/bin/llvm-config-3.4 -DENABLE_UNIT_TESTS=OFF -DENABLE_SYSTEM_TESTS=OFF ..
+make
+
+
+为了支持脚本运行，安装python3.6，参考：https://www.cnblogs.com/qa-freeroad/p/13557733.html
+
